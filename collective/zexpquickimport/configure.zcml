@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.zexpquickimport"
+    >
+
+  <five:registerPackage package="." initialize=".zope2.initialize" />
+
+  <!-- Monkey patcher -->
+  <include package="collective.monkeypatcher" />
+  <monkey:patch
+      description="Add support for XSendfile"
+      class="OFS.ObjectManager.ObjectManager"
+      original="_importObjectFromFile"
+      replacement=".patches.import_object_from_file"
+      />
+
+</configure>
